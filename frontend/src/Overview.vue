@@ -1,8 +1,8 @@
 <template>
     <div class="container-fluid">
-        <v-modal title="Deploy Verticle" effect="fade" v-model="deployModalDisplayed" @ok="deployModalDisplayed = false">
+        <modal title="Deploy Verticle" effect="fade" v-model="deployModalDisplayed" @ok="deployModalDisplayed = false">
     
-        </v-modal>
+        </modal>
         <div v-if="metrics">
             <div class="row row-eq-height row-cards-pf">
                 <pf-aggregate-status-card :class="getColumnClass(1)" title="Deployed Verticles" :count="getSimpleMetricValue('vertx_verticles')" iconClass="fa fa-cubes">
