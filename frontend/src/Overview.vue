@@ -1,9 +1,12 @@
 <template>
     <div class="container-fluid">
+        <v-modal title="Deploy Verticle" effect="fade" v-model="deployModalDisplayed" @ok="deployModalDisplayed = false">
+    
+        </v-modal>
         <div v-if="metrics">
             <div class="row row-eq-height row-cards-pf">
                 <pf-aggregate-status-card :class="getColumnClass(1)" title="Deployed Verticles" :count="getSimpleMetricValue('vertx_verticles')" iconClass="fa fa-cubes">
-                    <a href="#" class="add">
+                    <a @click="deployModalDisplayed = true" class="add" style="cursor: pointer">
                         <span class="pficon pficon-add-circle-o"></span>
                     </a>
                 </pf-aggregate-status-card>
@@ -165,7 +168,8 @@ export default {
     data() {
         return {
             requestedMetrics: [],
-            metrics: null
+            metrics: null,
+            deployModalDisplayed: false
         }
     },
     beforeMount() {
