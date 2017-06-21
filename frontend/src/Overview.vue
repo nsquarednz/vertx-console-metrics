@@ -165,11 +165,11 @@ export default {
     data() {
         return {
             requestedMetrics: [],
-            metrics: null,
-            numeral: numeral // Allow use with inline fn
+            metrics: null
         }
     },
-    mounted() {
+    beforeMount() {
+        this.numeral = numeral;
         // Necessary for reactivity
         this.metricsCallback = metrics => {
             this.metrics = metrics;
