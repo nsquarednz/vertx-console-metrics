@@ -67,7 +67,7 @@ export default {
         subscribed.delete(metricName);
     },
     initialize(endpoint) {
-        url = endpoint;
+        url = window.location.pathname + endpoint;
         updateMetrics();
         setInterval(updateMetrics, 1000);
     },
