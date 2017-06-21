@@ -1,12 +1,10 @@
 <template>
     <div class="container-fluid">
-        <modal title="Deploy Verticle" effect="fade" v-model="deployModalDisplayed" @ok="deployModalDisplayed = false">
-    
-        </modal>
+        <deploy-verticle ref="deployVerticle"></deploy-verticle>
         <div v-if="metrics">
             <div class="row row-eq-height row-cards-pf">
                 <pf-aggregate-status-card :class="getColumnClass(1)" title="Deployed Verticles" :count="getSimpleMetricValue('vertx_verticles')" iconClass="fa fa-cubes">
-                    <a @click="deployModalDisplayed = true" class="add" style="cursor: pointer">
+                    <a @click="$refs.deployVerticle.displayModal()" class="add" style="cursor: pointer">
                         <span class="pficon pficon-add-circle-o"></span>
                     </a>
                 </pf-aggregate-status-card>
@@ -159,12 +157,13 @@ import numeral from 'numeral';
 import Metrics from './metrics.js';
 Metrics.initialize('/metrics');
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import DeployVerticle from './DeployVerticle.vue';
 
 export default {
     name: 'Overview',
+    components: {
+        'deploy-verticle': DeployVerticle
+    },
     data() {
         return {
             requestedMetrics: [],
