@@ -33,7 +33,7 @@ public class MetricsConsolePage implements ConsolePage {
             vertx.deployVerticle(name, new DeploymentOptions().setWorker(isWorker));
             JsonObject response = new JsonObject();
             response.put("status", 200);
-            ctx.response().end(response.toString());
+            ctx.response().putHeader("content-type", JSON_CONTENT_TYPE).end(response.toString());
         });
     }
 
