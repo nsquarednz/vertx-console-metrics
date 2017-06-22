@@ -46,18 +46,9 @@ module.exports = {
         target: 'http://localhost:5000',
         secure: false
       },
-      '/admin/discovery': {
+      '/admin/verticle/deploy': {
         target: 'http://localhost:5000',
         secure: false
-      },
-      '/admin/loggers': {
-        target: 'http://localhost:5000',
-        secure: false
-      },
-      '/admin/loggerproxy/': {
-        target: 'http://localhost:5000',
-        secure: false,
-        ws: true
       }
     }
   },

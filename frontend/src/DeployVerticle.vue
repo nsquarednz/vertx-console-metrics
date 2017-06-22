@@ -32,6 +32,7 @@ export default {
     data() {
         return {
             show: false,
+            inProgress: false,
             verticleClass: '',
             verticleType: 'Standard',
             verticleTypes: ['Standard', 'Worker']
@@ -46,13 +47,19 @@ export default {
                 name: this.verticleClass,
                 isWorker: this.verticleType === 'Worker'
             };
-            console.log(options);
+            this.inProgress = true;
+            this.$http.post(window.location.pathname + '/verticle/deploy', options)
+                .then(response => response.json())
+                .then(response => {
+                    this.inProgress = false;
+                    console.log(JSON.stringify(response));
+                });
             this.show = false;
         }
     },
     computed: {
         inputsAreValid() {
-            return this.verticleClass.length > 0;
+            return !this.inProgress && this.verticleClass.length > 0;
         }
     }
 }
