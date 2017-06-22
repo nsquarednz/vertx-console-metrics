@@ -13,7 +13,7 @@
             </dropdown>
         </div>
         <div slot="modal-footer" class="modal-footer" style="padding-top: 0; margin-top: 0">
-            <button type="button" class="btn btn-default" @click="show = false">Cancel</button>
+            <button type="button" class="btn btn-default" @click="show = false">Close</button>
             <button type="button" class="btn btn-primary" @click="deployVerticle" :disabled="!inputsAreValid">Deploy</button>
         </div>
     </modal>
@@ -42,7 +42,12 @@ export default {
             this.show = true;
         },
         deployVerticle() {
-
+            const options = {
+                name: this.verticleClass,
+                isWorker: this.verticleType === 'Worker'
+            };
+            console.log(options);
+            this.show = false;
         }
     },
     computed: {
