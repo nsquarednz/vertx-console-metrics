@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid pf-card-grid">
         <deploy-verticle ref="deployVerticle"></deploy-verticle>
         <div class="row">
             <div class="col-md-3">
@@ -113,6 +113,10 @@
 </template>
 
 <style lang="scss">
+.pf-card-grid {
+    padding: 20px 30px 5px;
+}
+
 .match-util-trend .card-pf-body {
     height: 308px;
 }
