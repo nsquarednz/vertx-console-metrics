@@ -69,7 +69,7 @@ export default {
     initialize(endpoint) {
         url = window.location.pathname + endpoint;
         updateMetrics();
-        setInterval(updateMetrics, 1000);
+        setInterval(updateMetrics, 1250);
     },
     addCallback(cb) {
         callbacks.push(cb);
