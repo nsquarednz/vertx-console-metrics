@@ -181,9 +181,16 @@ export default {
         Metrics.removeCallback(this.metricsCallback);
     },
     methods: {
-        getColumnClass(width, noCollapse) {
-            let collapseStr = noCollapse ? '' : 'col-md-' + 6 * width + ' ';
-            return collapseStr + 'col-lg-' + 3 * width ;
+        getColumnClass(width) {
+            if (!this.columnClasses) {
+                this.columnClasses = []
+            }
+            let existingValue = this.columnClasses[width];
+            if (existingValue === undefined) {
+                existingValue = 'col-sm-12 col-md-' + 6 * width + ' col-lg-' + 3 * width;
+                this.columnClasses[width] = existingValue;
+            }
+            return existingValue;
         },
         getMetricByName(name, isRegex) {
             if (isRegex) {
