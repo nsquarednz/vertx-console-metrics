@@ -113,15 +113,6 @@
 </template>
 
 <style lang="scss">
-.row-eq-height {
-    display: flex;
-}
-
-.row-eq-height>.card-pf {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
 .match-util-trend .card-pf-body {
     height: 308px;
 }
