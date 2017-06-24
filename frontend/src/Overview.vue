@@ -2,24 +2,24 @@
     <div class="container-fluid">
         <deploy-verticle ref="deployVerticle"></deploy-verticle>
         <div class="row">
-            <div :class="getColumnClass(1)">
+            <div class="col-md-3">
                 <pf-aggregate-status-card title="Deployed Verticles" :count="getSimpleMetricValue('vertx_verticles')" iconClass="fa fa-cubes">
                     <a @click="$refs.deployVerticle.displayModal()" class="add" style="cursor: pointer">
                         <span class="pficon pficon-add-circle-o"></span>
                     </a>
                 </pf-aggregate-status-card>
             </div>
-            <div :class="getColumnClass(1)">
+            <div class="col-md-3">
                 <pf-aggregate-status-card title="Uptime" iconClass="fa fa-clock-o">
                     <span>{{ uptime }}</span>
                 </pf-aggregate-status-card>
             </div>
-            <div :class="getColumnClass(1)">
+            <div class="col-md-3">
                 <pf-aggregate-status-card title="Open Connections" :count="getSimpleMetricValue('.*_open_connections_.*', true)" iconClass="fa fa-exchange">
                     <span class="pficon pficon-ok"></span>
                 </pf-aggregate-status-card>
             </div>
-            <div :class="getColumnClass(1)">
+            <div class="col-md-3">
                 <pf-aggregate-status-card title="Load Average" :count="getSimpleMetricValue('os_load_average').toFixed(2)" iconClass="fa fa-hourglass">
                     <span class="pficon pficon-ok"></span>
                 </pf-aggregate-status-card>
@@ -179,7 +179,7 @@ export default {
     methods: {
         getColumnClass(width, noCollapse) {
             let collapseStr = noCollapse ? '' : 'col-md-' + 6 * width + ' ';
-            return collapseStr + 'col-lg-' + 3 * width;
+            return collapseStr + 'col-lg-' + 3 * width ;
         },
         getMetricByName(name, isRegex) {
             if (isRegex) {
