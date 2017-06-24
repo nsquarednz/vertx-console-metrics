@@ -176,15 +176,15 @@ export default {
             // console.log(JSON.stringify(this.metrics, null, 4));
         };
         Metrics.addCallback(this.metricsCallback);
+
+        this.columnClasses = [];
+        this.regexNameCache = {};
     },
     beforeDestroy() {
         Metrics.removeCallback(this.metricsCallback);
     },
     methods: {
         getColumnClass(width) {
-            if (!this.columnClasses) {
-                this.columnClasses = []
-            }
             let existingValue = this.columnClasses[width];
             if (existingValue === undefined) {
                 existingValue = 'col-sm-12 col-md-' + 6 * width + ' col-lg-' + 3 * width;
@@ -194,9 +194,19 @@ export default {
         },
         getMetricByName(name, isRegex) {
             if (isRegex) {
+                const cachedKey = this.regexNameCache[name];
+                if (cachedKey !== undefined) {
+                    const v = this.metrics[cachedKey];
+                    if (v !== undefined) {
+                        return v;
+                    } else {
+                        delete this.regexNameCache[name];
+                    }
+                }
                 let regex = new RegExp(name);
                 for (let [k, v] of Object.entries(this.metrics)) {
                     if (regex.test(k)) {
+                        this.regexNameCache[name] = k;
                         return v;
                     }
                 }
