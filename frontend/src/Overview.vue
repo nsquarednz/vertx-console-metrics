@@ -1,110 +1,112 @@
 <template>
     <div class="container-fluid">
         <deploy-verticle ref="deployVerticle"></deploy-verticle>
-        <div v-if="metrics">
-            <div class="row row-eq-height row-cards-pf">
-                <pf-aggregate-status-card :class="getColumnClass(1)" title="Deployed Verticles" :count="getSimpleMetricValue('vertx_verticles')" iconClass="fa fa-cubes">
+        <div class="row">
+            <div :class="getColumnClass(1)">
+                <pf-aggregate-status-card title="Deployed Verticles" :count="getSimpleMetricValue('vertx_verticles')" iconClass="fa fa-cubes">
                     <a @click="$refs.deployVerticle.displayModal()" class="add" style="cursor: pointer">
                         <span class="pficon pficon-add-circle-o"></span>
                     </a>
                 </pf-aggregate-status-card>
-                <pf-aggregate-status-card :class="getColumnClass(1)" title="Uptime" iconClass="fa fa-clock-o">
+            </div>
+            <div :class="getColumnClass(1)">
+                <pf-aggregate-status-card title="Uptime" iconClass="fa fa-clock-o">
                     <span>{{ uptime }}</span>
                 </pf-aggregate-status-card>
-                <pf-aggregate-status-card :class="getColumnClass(1)" title="Open Connections" :count="getSimpleMetricValue('.*_open_connections_.*', true)" iconClass="fa fa-exchange">
-                    <span class="pficon pficon-ok"></span>
-                </pf-aggregate-status-card>
-                <pf-aggregate-status-card :class="getColumnClass(1)" title="Load Average" :count="getSimpleMetricValue('os_load_average').toFixed(2)" iconClass="fa fa-hourglass">
+            </div>
+            <div :class="getColumnClass(1)">
+                <pf-aggregate-status-card title="Open Connections" :count="getSimpleMetricValue('.*_open_connections_.*', true)" iconClass="fa fa-exchange">
                     <span class="pficon pficon-ok"></span>
                 </pf-aggregate-status-card>
             </div>
-            <div class="row row-eq-height row-cards-pf">
-                <div :class="getColumnClass(1)">
-                    <pf-card title="Java Heap" :accented="false" :showTitlesSeparator="false">
-                        <pf-util-trend labelType="used" donutColor="#EC7A08" :data="javaHeapUsage"></pf-util-trend>
-                    </pf-card>
-                </div>
-                <div :class="getColumnClass(1)">
-                    <pf-card class="match-util-trend" title="System Load" :accented="false" :showTitlesSeparator="false">
-                        <pf-trend labelType="used" title="CPU Usage" :data="cpuUsage"></pf-trend>
-                        <div class="pf-body-separator"></div>
-                        <pf-trend labelType="used" title="HTTP Reqs/sec" :data="avgRequestsPerSecond"></pf-trend>
-                        <div class="pf-body-separator"></div>
-                        <div class="pf-card-section">
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Non-Heap Used" :data="nonHeapUsage"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Total Collections" :data="gcCount"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Total GC Time" :data="gcTotal"></pf-trend-details>
-                            </div>
-                        </div>
-                    </pf-card>
-                </div>
-                <div :class="getColumnClass(2)">
-                    <pf-card class="match-util-trend" title="HTTP Response Times (ms) " :accented="false" :showTitlesSeparator="false">
-                        <pf-stacked-bar :height="288" :data="httpRequests"></pf-stacked-bar>
-                    </pf-card>
-                </div>
+            <div :class="getColumnClass(1)">
+                <pf-aggregate-status-card title="Load Average" :count="getSimpleMetricValue('os_load_average').toFixed(2)" iconClass="fa fa-hourglass">
+                    <span class="pficon pficon-ok"></span>
+                </pf-aggregate-status-card>
             </div>
-            <div class="row row-eq-height row-cards-pf">
-                <div :class="getColumnClass(1)">
-                    <pf-card class="match-util-trend" title="Resources" :accented="false" :showTitlesSeparator="false">
-                        <pf-utilization-bar-chart title='Worker Pool' :formatFn="n => n + ' threads'" :value="getSimpleMetricValue('vertx_pools_worker_vert_x_worker_thread_in_use')" :total="getSimpleMetricValue('vertx_pools_worker_vert_x_worker_thread_max_pool_size')" :warning="60" :error="85"></pf-utilization-bar-chart>
-                        <!-- <pf-utilization-bar-chart title='Open Files' units='FDs' :value="parseInt(getSimpleMetricValue('process_open_fds'))" :total="parseInt(getSimpleMetricValue('process_max_fds'))" inline :warning="60" :error="85"></pf-utilization-bar-chart> -->
-                        <pf-utilization-bar-chart title='Disk Storage' :formatFn="diskUsage.formatFn" :value="diskUsage.used" :total="diskUsage.total" :warning="60" :error="85"></pf-utilization-bar-chart>
-                        <div class="pf-body-separator"></div>
-                        <div class="pf-card-section">
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Threads Started" :data="simpleFormattedData('jvm_threads_started_total', '0[.]0a')"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Active Threads" :data="simpleFormattedData('jvm_threads_current', '0[.]0a')"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Deadlocked Threads" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
-                            </div>
+            <div :class="getColumnClass(1)">
+                <pf-card title="Java Heap" :accented="false" :showTitlesSeparator="false">
+                    <pf-util-trend labelType="used" donutColor="#EC7A08" :data="javaHeapUsage"></pf-util-trend>
+                </pf-card>
+            </div>
+            <div :class="getColumnClass(1)">
+                <pf-card class="match-util-trend" title="System Load" :accented="false" :showTitlesSeparator="false">
+                    <pf-trend labelType="used" title="CPU Usage" :data="cpuUsage"></pf-trend>
+                    <div class="pf-body-separator"></div>
+                    <pf-trend labelType="used" title="HTTP Reqs/sec" :data="avgRequestsPerSecond"></pf-trend>
+                    <div class="pf-body-separator"></div>
+                    <div class="pf-card-section">
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Non-Heap Used" :data="nonHeapUsage"></pf-trend-details>
                         </div>
-                        <div class="pf-body-separator noline"></div>
-                        <div class="pf-card-section">
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Available CPUs" :data="simpleFormattedData('os_avail_processors')"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Loaded Classes" :data="simpleFormattedData('jvm_classes_loaded_total', '0[.]0a')"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Unloaded Classes" :data="simpleFormattedData('jvm_classes_unloaded_total')"></pf-trend-details>
-                            </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Total Collections" :data="gcCount"></pf-trend-details>
                         </div>
-                    </pf-card>
-                </div>
-                <div :class="getColumnClass(1)">
-                    <pf-card class="match-util-trend" title="Event Bus" :accented="false" :showTitlesSeparator="false">
-                        <pf-trend labelType="used" title="Published/sec" :data="eventBusMessagesPublishedPerSecond"></pf-trend>
-                        <div class="pf-body-separator"></div>
-                        <pf-trend labelType="used" title="Active Handlers" :data="simpleFormattedData('vertx_eventbus_handlers', '0[.]0a')"></pf-trend>
-                        <div class="pf-body-separator"></div>
-                        <div class="pf-card-section">
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Msgs Delivered" :data="simpleFormattedData('vertx_eventbus_messages_delivered_total', '0[.]0a')"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Msgs Published" :data="simpleFormattedData('vertx_eventbus_messages_published_total', '0[.]0a')"></pf-trend-details>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <pf-trend-details title="Reply Failures" :data="simpleFormattedData('vertx_eventbus_messages_reply_failures_total', '0[.]0a')"></pf-trend-details>
-                            </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Total GC Time" :data="gcTotal"></pf-trend-details>
                         </div>
-                    </pf-card>
-                </div>
-                <div :class="getColumnClass(2)">
-                    <pf-card class="match-util-trend" title="HTTP Requests/sec History" :accented="false" :showTitlesSeparator="false">
-                        <pf-multi-line :height="288" :data="httpRequestsRates" chartType="area"></pf-multi-line>
-                    </pf-card>
-                </div>
+                    </div>
+                </pf-card>
+            </div>
+            <div :class="getColumnClass(2)">
+                <pf-card class="match-util-trend" title="HTTP Response Times (ms) " :accented="false" :showTitlesSeparator="false">
+                    <pf-stacked-bar :height="288" :data="httpRequests"></pf-stacked-bar>
+                </pf-card>
+            </div>
+            <div :class="getColumnClass(1)">
+                <pf-card class="match-util-trend" title="Resources" :accented="false" :showTitlesSeparator="false">
+                    <pf-utilization-bar-chart title='Worker Pool' :formatFn="n => n + ' threads'" :value="getSimpleMetricValue('vertx_pools_worker_vert_x_worker_thread_in_use')" :total="getSimpleMetricValue('vertx_pools_worker_vert_x_worker_thread_max_pool_size')" :warning="60" :error="85"></pf-utilization-bar-chart>
+                    <!-- <pf-utilization-bar-chart title='Open Files' units='FDs' :value="parseInt(getSimpleMetricValue('process_open_fds'))" :total="parseInt(getSimpleMetricValue('process_max_fds'))" inline :warning="60" :error="85"></pf-utilization-bar-chart> -->
+                    <pf-utilization-bar-chart title='Disk Storage' :formatFn="diskUsage.formatFn" :value="diskUsage.used" :total="diskUsage.total" :warning="60" :error="85"></pf-utilization-bar-chart>
+                    <div class="pf-body-separator"></div>
+                    <div class="pf-card-section">
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Threads Started" :data="simpleFormattedData('jvm_threads_started_total', '0[.]0a')"></pf-trend-details>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Active Threads" :data="simpleFormattedData('jvm_threads_current', '0[.]0a')"></pf-trend-details>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Deadlocked Threads" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
+                        </div>
+                    </div>
+                    <div class="pf-body-separator noline"></div>
+                    <div class="pf-card-section">
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Available CPUs" :data="simpleFormattedData('os_avail_processors')"></pf-trend-details>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Loaded Classes" :data="simpleFormattedData('jvm_classes_loaded_total', '0[.]0a')"></pf-trend-details>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Unloaded Classes" :data="simpleFormattedData('jvm_classes_unloaded_total')"></pf-trend-details>
+                        </div>
+                    </div>
+                </pf-card>
+            </div>
+            <div :class="getColumnClass(1)">
+                <pf-card class="match-util-trend" title="Event Bus" :accented="false" :showTitlesSeparator="false">
+                    <pf-trend labelType="used" title="Published/sec" :data="eventBusMessagesPublishedPerSecond"></pf-trend>
+                    <div class="pf-body-separator"></div>
+                    <pf-trend labelType="used" title="Active Handlers" :data="simpleFormattedData('vertx_eventbus_handlers', '0[.]0a')"></pf-trend>
+                    <div class="pf-body-separator"></div>
+                    <div class="pf-card-section">
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Msgs Delivered" :data="simpleFormattedData('vertx_eventbus_messages_delivered_total', '0[.]0a')"></pf-trend-details>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Msgs Published" :data="simpleFormattedData('vertx_eventbus_messages_published_total', '0[.]0a')"></pf-trend-details>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <pf-trend-details title="Reply Failures" :data="simpleFormattedData('vertx_eventbus_messages_reply_failures_total', '0[.]0a')"></pf-trend-details>
+                        </div>
+                    </div>
+                </pf-card>
+            </div>
+            <div :class="getColumnClass(2)">
+                <pf-card class="match-util-trend" title="HTTP Requests/sec History" :accented="false" :showTitlesSeparator="false">
+                    <pf-multi-line :height="288" :data="httpRequestsRates" chartType="area"></pf-multi-line>
+                </pf-card>
             </div>
         </div>
     </div>
