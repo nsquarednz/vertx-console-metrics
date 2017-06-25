@@ -4,7 +4,7 @@
             <v-input v-model="verticleClass" label="Verticle Class" help="Enter verticle class to deploy" required>
             </v-input>
         </div>
-        <div style="float: right">
+        <div>
             <label class="control-label">Verticle Type</label>
             <dropdown :text="verticleType" style="display: block; width: 84px">
                 <li>
