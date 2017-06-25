@@ -8,7 +8,7 @@
             <label class="control-label">Verticle Type</label>
             <dropdown :text="verticleType" style="display: block; width: 84px">
                 <li>
-                    <a v-for="availableType in verticleTypes" :key="availableType" @click="verticleType = availableType">{{ availableType }}</a>
+                    <a v-for="availableType in ['Standard', 'Worker']" :key="availableType" @click="verticleType = availableType">{{ availableType }}</a>
                 </li>
             </dropdown>
         </div>
@@ -42,8 +42,7 @@ export default {
             show: false,
             inProgress: false,
             verticleClass: '',
-            verticleType: 'Standard',
-            verticleTypes: ['Standard', 'Worker']
+            verticleType: 'Standard'
         }
     },
     methods: {
