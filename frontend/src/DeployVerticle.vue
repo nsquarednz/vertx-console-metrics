@@ -1,6 +1,6 @@
 <template>
     <modal class="deploy-verticle" title="Deploy Verticle" effect="fade" v-model="show" @ok="show = false">
-        <div style="width: 100%; margin-right: 16px">
+        <div style="width: 100%">
             <v-input v-model="verticleClass" label="Verticle Class" help="Enter verticle class to deploy" required>
             </v-input>
         </div>
@@ -24,6 +24,14 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+
+    div {
+        margin-right: 16px;
+
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
 }
 </style>
 
