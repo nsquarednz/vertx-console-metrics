@@ -8,7 +8,7 @@
             <label class="control-label">Verticle Type</label>
             <dropdown :text="verticleType" style="display: block; width: 84px">
                 <li>
-                    <a v-for="availableType in verticleTypes" @click="verticleType = availableType">{{ availableType }}</a>
+                    <a v-for="availableType in verticleTypes" :key="availableType" @click="verticleType = availableType">{{ availableType }}</a>
                 </li>
             </dropdown>
         </div>
