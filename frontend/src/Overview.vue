@@ -139,18 +139,26 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1600px) {
-    .card-pf-body .pf-body-separator {
-        margin-top: 16px;
-        margin-bottom: 16px;
-    }
+    .card-pf-body {
+        .pf-body-separator {
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
 
-    .card-pf-body .progress {
-        margin-bottom: 16px;
-    }
+        .progress {
+            margin-bottom: 16px;
+        }
 
-    .card-pf-body .pf-body-separator.noline {
-        margin-top: 6px;
-        margin-bottom: 6px;
+        .pf-body-separator.noline {
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1060px) {
+    .pf-card-grid .card-pf.card-pf-aggregate-status {
+        height: 104px;
     }
 }
 
