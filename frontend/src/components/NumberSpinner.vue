@@ -17,13 +17,13 @@ export default {
     },
     methods: {
         plus() {
-            this.$emit('input', Math.max(this.min, this.value - this.step));
-        },
-        minus() {
             this.$emit('input', Math.min(this.max, this.value + this.step));
         },
+        minus() {
+            this.$emit('input', Math.max(this.min, this.value - this.step));
+        },
         onWheel(e) {
-            e.deltaY > 0 ? this.plus() : this.minus()
+            e.deltaY < 0 ? this.plus() : this.minus()
         }
     }
 }
