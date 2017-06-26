@@ -29,7 +29,7 @@ public class MetricsConsolePage implements ConsolePage {
                     JsonObject body = ctx.getBodyAsJson();
                     String name = body.getString("name");
                     boolean isWorker = body.getBoolean("isWorker");
-                    boolean isMultithreaded = body.getBoolean("isMultithreaded");
+                    boolean ha = body.getBoolean("ha");
                     int instances = body.getInteger("instances");
 
                     JsonObject response = new JsonObject();
@@ -37,7 +37,7 @@ public class MetricsConsolePage implements ConsolePage {
                     if (classExists(name)) {
                         vertx.deployVerticle(name, new DeploymentOptions()
                                 .setWorker(isWorker)
-                                .setMultiThreaded(isMultithreaded)
+                                .setHa(ha)
                                 .setInstances(instances)
                         );
                         response.put("status", 200);

@@ -28,21 +28,13 @@
 <template>
     <modal class="deploy-verticle" title="Deploy Verticle" effect="fade" v-model="show" @ok="show = false" large>
         <div style="width: 100%">
-            <v-input v-model="verticleClass" label="Verticle Class" help="Enter verticle class to deploy" required>
+            <v-input v-model="verticleClass" label="Verticle" help="Enter verticle to deploy" required>
             </v-input>
         </div>
         <!-- TODO: Convert to switches -->
         <div class="dropdown">
             <label class="control-label">Instances</label>
             <number-spinner v-model="instances" :min="1"></number-spinner>
-        </div>
-        <div class="dropdown">
-            <label class="control-label">Multithreading</label>
-            <dropdown :text="multithreaded">
-                <li>
-                    <a v-for="availableType in ['Enabled', 'Disabled']" :key="availableType" @click="multithreaded = availableType">{{ availableType }}</a>
-                </li>
-            </dropdown>
         </div>
         <div class="dropdown">
             <label class="control-label">Verticle Type</label>
@@ -52,6 +44,14 @@
                 </li>
             </dropdown>
         </div>
+        <div class="dropdown">
+            <label class="control-label">HA</label>
+            <dropdown :text="ha">
+                <li>
+                    <a v-for="availableType in ['Enabled', 'Disabled']" :key="availableType" @click="ha = availableType">{{ availableType }}</a>
+                </li>
+            </dropdown>
+        </div>    
         <div slot="modal-footer" class="modal-footer" style="padding-top: 0; margin-top: 0">
             <button type="button" class="btn btn-default" @click="show = false">Close</button>
             <button type="button" class="btn btn-primary" @click="deployVerticle" :disabled="!inputsAreValid">Deploy</button>
@@ -72,7 +72,7 @@ export default {
             inProgress: false,
             verticleClass: '',
             verticleType: 'Standard',
-            multithreaded: 'Disabled',
+            ha: 'Disabled',
             instances: 1
         }
     },
@@ -84,7 +84,7 @@ export default {
             const options = {
                 name: this.verticleClass,
                 isWorker: this.verticleType === 'Worker',
-                isMultithreaded: this.multithreaded === 'Enabled',
+                ha: this.ha === 'Enabled',
                 instances: this.instances
             };
             this.inProgress = true;
