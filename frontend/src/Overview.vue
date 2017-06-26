@@ -67,7 +67,7 @@
                             <pf-trend-details title="Active Threads" :data="simpleFormattedData('jvm_threads_current', '0[.]0a')"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Deadlocks" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
+                            <pf-trend-details title="Total Deadlocks" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
                         </div>
                     </div>
                     <div class="pf-body-separator noline"></div>
@@ -132,16 +132,25 @@
     margin-bottom: 24px;
 }
 
-.pf-body-separator.noline {
+.card-pf-body .pf-body-separator.noline {
     background: transparent;
     margin-top: 8px;
     margin-bottom: 8px;
 }
 
 @media (min-width: 1200px) and (max-width: 1600px) {
-    .pf-body-separator.noline {
-        margin-top: 4px;
-        margin-bottom: 4px;
+    .card-pf-body .pf-body-separator {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .card-pf-body .progress {
+        margin-bottom: 16px;
+    }
+
+    .card-pf-body .pf-body-separator.noline {
+        margin-top: 6px;
+        margin-bottom: 6px;
     }
 }
 

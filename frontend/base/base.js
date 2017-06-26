@@ -42705,6 +42705,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'pf-trend-details',
@@ -43430,7 +43444,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n#app {\n  height: calc(100vh - 60px);\n}\n.row-no-padding > [class*=\"col-\"] {\n  padding-left: 0 !important;\n  padding-right: 0 !important;\n}\n.pf-layout-container {\n  height: 100%;\n  min-height: 100%;\n}\n.navbar-brand-name {\n  line-height: 35px;\n}\n.c3 svg {\n  font-family: \"Open Sans\", Helvetica, Arial, sans-serif;\n}\n.row-eq-height {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n", ""]);
+exports.push([module.i, "\n#app {\n  height: calc(100vh - 60px);\n}\n.row-no-padding > [class*=\"col-\"] {\n  padding-left: 0 !important;\n  padding-right: 0 !important;\n}\n.pf-layout-container {\n  height: 100%;\n  min-height: 100%;\n}\n.navbar-brand-name {\n  line-height: 35px;\n}\n.c3 svg {\n  font-family: \"Open Sans\", Helvetica, Arial, sans-serif;\n}\n", ""]);
 
 // exports
 
@@ -43500,7 +43514,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.trend-title-compact-medium-pf {\r\n  font-size: 26px;\r\n  font-weight: 300;\r\n  line-height: 1;\n}\r\n", ""]);
+exports.push([module.i, "\n.trend-title-compact-medium-pf {\r\n  font-size: 26px;\r\n  font-weight: 300;\r\n  line-height: 1;\n}\n@media (min-width: 1200px) and (max-width: 1600px) {\n.trend-header-compact-pf {\r\n        font-size: 11px;\n}\n.trend-title-compact-medium-pf {\r\n        font-size: 22px;\n}\n.trend-title-compact-big-pf {\r\n        font-size: 28px;\n}\n}\r\n", ""]);
 
 // exports
 
