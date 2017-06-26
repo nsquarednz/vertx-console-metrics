@@ -26,19 +26,39 @@ public class MetricsConsolePage implements ConsolePage {
         router.route(basePath + "/verticle/deploy")
                 .consumes(JSON_CONTENT_TYPE).produces(JSON_CONTENT_TYPE)
                 .handler(ctx -> {
-            JsonObject body = ctx.getBodyAsJson();
-            String name = body.getString("name");
-            boolean isWorker = body.getBoolean("isWorker");
-            // TODO: Completion handler
-            vertx.deployVerticle(name, new DeploymentOptions().setWorker(isWorker));
-            JsonObject response = new JsonObject();
-            response.put("status", 200);
-            ctx.response().putHeader("content-type", JSON_CONTENT_TYPE).end(response.toString());
-        });
+                    JsonObject body = ctx.getBodyAsJson();
+                    String name = body.getString("name");
+                    boolean isWorker = body.getBoolean("isWorker");
+                    boolean isMultithreaded = body.getBoolean("isMultithreaded");
+                    int instances = body.getInteger("instances");
+
+                    JsonObject response = new JsonObject();
+                    // TODO: Completion handler
+                    if (classExists(name)) {
+                        vertx.deployVerticle(name, new DeploymentOptions()
+                                .setWorker(isWorker)
+                                .setMultiThreaded(isMultithreaded)
+                                .setInstances(instances)
+                        );
+                        response.put("status", 200);
+                    } else {
+                        response.put("status", 400);
+                    }
+                    ctx.response().putHeader("content-type", JSON_CONTENT_TYPE).end(response.toString());
+                });
     }
 
     @Override
     public String getLoaderFileName() {
         return "/js/metrics.js";
+    }
+
+    private static boolean classExists(String name) {
+        try {
+            Class.forName(name);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
