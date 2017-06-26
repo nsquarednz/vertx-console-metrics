@@ -32,19 +32,21 @@ public class MetricsConsolePage implements ConsolePage {
                     boolean ha = body.getBoolean("ha");
                     int instances = body.getInteger("instances");
 
-                    JsonObject response = new JsonObject();
                     // TODO: Completion handler
-                    if (classExists(name)) {
-                        vertx.deployVerticle(name, new DeploymentOptions()
-                                .setWorker(isWorker)
-                                .setHa(ha)
-                                .setInstances(instances)
-                        );
-                        response.put("status", 200);
-                    } else {
-                        response.put("status", 400);
-                    }
-                    ctx.response().putHeader("content-type", JSON_CONTENT_TYPE).end(response.toString());
+                    vertx.deployVerticle(name,
+                            new DeploymentOptions()
+                                    .setWorker(isWorker)
+                                    .setHa(ha)
+                                    .setInstances(instances),
+                            result -> {
+                                JsonObject response = new JsonObject();
+                                if (result.succeeded()) {
+                                    response.put("status", 200);
+                                } else {
+                                    response.put("status", 400);
+                                }
+                                ctx.response().putHeader("content-type", JSON_CONTENT_TYPE).end(response.toString());
+                            });
                 });
     }
 
