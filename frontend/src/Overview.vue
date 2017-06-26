@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid pf-card-grid">
+    <div class="container-fluid pf-card-grid" v-if="metrics && Object.keys(metrics).length > 0">
         <deploy-verticle ref="deployVerticle"></deploy-verticle>
         <div class="row">
             <div class="col-md-3">
@@ -110,6 +110,7 @@
             </div>
         </div>
     </div>
+    <div v-else></div>
 </template>
 
 <style lang="scss">
