@@ -83,7 +83,9 @@ export default {
         deployVerticle() {
             const options = {
                 name: this.verticleClass,
-                isWorker: this.verticleType === 'Worker'
+                isWorker: this.verticleType === 'Worker',
+                isMultithreaded: this.multithreaded === 'Enabled',
+                instances: this.instances
             };
             this.inProgress = true;
             this.$http.post(window.location.pathname + '/verticle/deploy', options)
