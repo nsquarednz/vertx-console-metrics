@@ -37,10 +37,10 @@
                     <div class="pf-body-separator"></div>
                     <div class="pf-card-section">
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Non-Heap Used" :data="nonHeapUsage"></pf-trend-details>
+                            <pf-trend-details title="Nonheap Used" :data="nonHeapUsage"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Total Collections" :data="gcCount"></pf-trend-details>
+                            <pf-trend-details title="Collections Run" :data="gcCount"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
                             <pf-trend-details title="Total GC Time" :data="gcTotal"></pf-trend-details>
@@ -67,7 +67,7 @@
                             <pf-trend-details title="Active Threads" :data="simpleFormattedData('jvm_threads_current', '0[.]0a')"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Deadlocked Threads" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
+                            <pf-trend-details title="Deadlocks" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
                         </div>
                     </div>
                     <div class="pf-body-separator noline"></div>
@@ -76,10 +76,10 @@
                             <pf-trend-details title="Available CPUs" :data="simpleFormattedData('os_avail_processors')"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Loaded Classes" :data="simpleFormattedData('jvm_classes_loaded_total', '0[.]0a')"></pf-trend-details>
+                            <pf-trend-details title="Loaded Classes" :data="simpleFormattedData('jvm_classes_loaded', '0[.]0a')"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Unloaded Classes" :data="simpleFormattedData('jvm_classes_unloaded_total')"></pf-trend-details>
+                            <pf-trend-details title="Total Unloads" :data="simpleFormattedData('jvm_classes_unloaded_total')"></pf-trend-details>
                         </div>
                     </div>
                 </pf-card>
