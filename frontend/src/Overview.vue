@@ -86,7 +86,7 @@
             </div>
             <div :class="getColumnClass(1)">
                 <pf-card class="match-util-trend" title="Event Bus" :accented="false" :showTitlesSeparator="false">
-                    <pf-trend labelType="used" title="Published/sec" :data="eventBusMessagesPublishedPerSecond"></pf-trend>
+                    <pf-trend labelType="used" title="Msg Pubs/sec" :data="eventBusMessagesPublishedPerSecond"></pf-trend>
                     <div class="pf-body-separator"></div>
                     <pf-trend labelType="used" title="Active Handlers" :data="simpleFormattedData('vertx_eventbus_handlers', '0[.]0a')"></pf-trend>
                     <div class="pf-body-separator"></div>
@@ -376,7 +376,7 @@ export default {
             this.lastTotalPublished = totalPublished;
             return {
                 value: mpps,
-                formatFn: n => numeral(n).format('0[.]0a') + ' msgs'
+                formatFn: n => numeral(n).format('0[.]0a')
             }
         }
     }
