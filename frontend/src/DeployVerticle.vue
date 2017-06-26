@@ -18,7 +18,7 @@
             display: block;
         }
 
-        .btn {
+        .dropdown-toggle {
             width: 88px;
         }
     }
@@ -32,6 +32,10 @@
             </v-input>
         </div>
         <!-- TODO: Convert to switches -->
+        <div class="dropdown">
+            <label class="control-label">Instances</label>
+            <number-spinner v-model="instances" :min="1"></number-spinner>
+        </div>
         <div class="dropdown">
             <label class="control-label">Multithreading</label>
             <dropdown :text="multithreaded">
@@ -56,14 +60,20 @@
 </template>
 
 <script>
+import NumberSpinner from './components/NumberSpinner.vue';
+
 export default {
+    components: {
+        'number-spinner': NumberSpinner
+    },
     data() {
         return {
             show: false,
             inProgress: false,
             verticleClass: '',
             verticleType: 'Standard',
-            multithreaded: 'Disabled'
+            multithreaded: 'Disabled',
+            instances: 1
         }
     },
     methods: {
