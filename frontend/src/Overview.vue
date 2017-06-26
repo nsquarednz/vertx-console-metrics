@@ -67,7 +67,7 @@
                             <pf-trend-details title="Active Threads" :data="simpleFormattedData('jvm_threads_current', '0[.]0a')"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Total Deadlocks" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
+                            <pf-trend-details title="Deadlock Waits" :data="simpleFormattedData('jvm_threads_deadlocked')"></pf-trend-details>
                         </div>
                     </div>
                     <div class="pf-body-separator noline"></div>
