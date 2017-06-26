@@ -138,12 +138,20 @@
     margin-bottom: 8px;
 }
 
+@media (min-width: 1200px) and (max-width: 1600px) {
+    .pf-body-separator.noline {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+}
+
 .pf-card-section {
     overflow: hidden;
 }
 
 .pf-card-section>div {
     padding: 0;
+    padding-right: 5px;
 }
 </style>
 
