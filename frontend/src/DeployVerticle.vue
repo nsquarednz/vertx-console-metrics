@@ -13,12 +13,8 @@
         }
     }
 
-    .dropdown {
+    .control-col {
         .btn-group {
-            display: block;
-        }
-
-        .dropdown-toggle {
             width: 88px;
         }
     }
@@ -28,29 +24,20 @@
 <template>
     <modal class="deploy-verticle" title="Deploy Verticle" effect="fade" v-model="show" @ok="show = false" large>
         <div style="width: 100%">
-            <v-input v-model="verticleClass" label="Verticle" help="Enter verticle to deploy" required>
-            </v-input>
+            <bs-input v-model="verticleClass" label="Verticle" help="Enter verticle to deploy" required></bs-input>
         </div>
         <!-- TODO: Convert to switches -->
-        <div class="dropdown">
+        <div class="control-col">
             <label class="control-label">Instances</label>
             <number-spinner v-model="instances" :min="1"></number-spinner>
         </div>
-        <div class="dropdown">
+        <div class="control-col">
             <label class="control-label">Verticle Type</label>
-            <dropdown :text="verticleType">
-                <li>
-                    <a v-for="availableType in ['Standard', 'Worker']" :key="availableType" @click="verticleType = availableType">{{ availableType }}</a>
-                </li>
-            </dropdown>
+            <v-select v-model="verticleType" :options="['Standard', 'Worker']"></v-select>
         </div>
-        <div class="dropdown">
+        <div class="control-col">
             <label class="control-label">HA</label>
-            <dropdown :text="ha">
-                <li>
-                    <a v-for="availableType in ['Enabled', 'Disabled']" :key="availableType" @click="ha = availableType">{{ availableType }}</a>
-                </li>
-            </dropdown>
+            <v-select v-model="ha" :options="['Enabled', 'Disabled']"></v-select>
         </div>    
         <div slot="modal-footer" class="modal-footer" style="padding-top: 0; margin-top: 0">
             <button type="button" class="btn btn-default" @click="show = false">Close</button>
