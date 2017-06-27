@@ -18,7 +18,7 @@
         .btn-group {
             display: block;
         }
-        .btn-group.bootstrap-select, .bootstrap-select .btn {
+        .btn-group, .bootstrap-select .btn {
             width: 88px;
         }
     }
