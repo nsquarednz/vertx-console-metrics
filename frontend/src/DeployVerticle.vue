@@ -4,17 +4,21 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    padding-bottom: 0;
 
     div {
         margin-right: 16px;
 
         &:last-child {
-            margin-right: 0px;
+            margin-right: 0;
         }
     }
 
     .control-col {
         .btn-group {
+            display: block;
+        }
+        .btn-group.bootstrap-select, .bootstrap-select .btn {
             width: 88px;
         }
     }
