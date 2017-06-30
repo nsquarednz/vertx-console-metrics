@@ -15,12 +15,19 @@ export default {
         },
         value: Number
     },
+    data() {
+        return {
+            internalValue: this.value
+        }
+    },
     methods: {
         plus() {
-            this.$emit('input', Math.min(this.max, this.value + this.step));
+            this.internalValue = Math.min(this.max, this.internalValue + this.step)
+            this.$emit('input', this.internalValue);
         },
         minus() {
-            this.$emit('input', Math.max(this.min, this.value - this.step));
+            this.internalValue = Math.max(this.min, this.internalValue - this.step)
+            this.$emit('input', this.internalValue)
         },
         onWheel(e) {
             e.deltaY < 0 ? this.plus() : this.minus()
@@ -36,7 +43,7 @@ export default {
                 <span>-</span>
             </button>
         </span>
-        <input type="text" class="form-control" v-model="value" @keydown.up="plus" @keydown.down="minus" @wheel="onWheel">
+        <input type="text" class="form-control" v-model="internalValue" @keydown.up="plus" @keydown.down="minus" @wheel="onWheel">
         <div class="input-group-btn">
             <button class="btn btn-default btn-plus" @click="plus()">
                 <span>+</span>
