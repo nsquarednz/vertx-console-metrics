@@ -22,25 +22,27 @@ export default {
     },
     methods: {
         plus() {
-            this.internalValue = this.restrictValue(this.sanitizeValue(this.internalValue) + this.step)
-            this.$emit('input', this.internalValue);
+            this.internalValue = this.restrictValue(this.sanitizedValue + this.step)
+            this.$emit('input', this.internalValue)
         },
         minus() {
-            this.internalValue = this.restrictValue(this.sanitizeValue(this.internalValue) - this.step)
+            this.internalValue = this.restrictValue(this.sanitizedValue - this.step)
             this.$emit('input', this.internalValue)
         },
         onWheel(e) {
             e.deltaY < 0 ? this.plus() : this.minus()
         },
-        sanitizeValue(v) {
+        restrictValue(v) {
+            return Math.min(Math.max(v, this.min), this.max)
+        }
+    },
+    computed: {
+        sanitizedValue() {
             const parsedValue = parseFloat(this.internalValue)
             if (isNaN(parsedValue)) {
                 return 0
             }
             return parsedValue
-        },
-        restrictValue(v) {
-            return Math.min(Math.max(v, this.min), this.max)
         }
     }
 }
