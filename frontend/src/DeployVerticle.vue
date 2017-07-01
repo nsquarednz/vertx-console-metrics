@@ -51,12 +51,7 @@
 </template>
 
 <script>
-import NumberSpinner from './components/NumberSpinner.vue';
-
 export default {
-    components: {
-        'number-spinner': NumberSpinner
-    },
     data() {
         return {
             show: false,
