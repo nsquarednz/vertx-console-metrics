@@ -21,28 +21,41 @@ export default {
         }
     },
     methods: {
+        onInput(e) {
+            const value = e.target.value
+            const parsed = parseInt(value)
+            const origInternalValue = this.internalValue
+            this.internalValue = null // Force DOM update 
+
+            // See https://jsperf.com/numbers-and-integers for weak equals
+            if (isNaN(parsed)) {
+                this.internalValue = ''
+            } else if (value == parsed && this.restrictValue(parsed) === parsed) { // jshint ignore:line
+                this.internalValue = parsed
+                this.emitValue()
+            } else {
+                this.internalValue = origInternalValue
+            }
+        },
         plus() {
-            this.internalValue = this.restrictValue(this.sanitizedValue + this.step)
-            this.$emit('input', this.internalValue)
+            this.internalValue = this.restrictValue(this.sanitizeValue(this.internalValue) + this.step)
+            this.emitValue()
         },
         minus() {
-            this.internalValue = this.restrictValue(this.sanitizedValue - this.step)
-            this.$emit('input', this.internalValue)
+            this.internalValue = this.restrictValue(this.sanitizeValue(this.internalValue) - this.step)
+            this.emitValue()
         },
         onWheel(e) {
             e.deltaY < 0 ? this.plus() : this.minus()
         },
+        sanitizeValue(v) {
+            return v === '' ? 0 : v
+        },
         restrictValue(v) {
             return Math.min(Math.max(v, this.min), this.max)
-        }
-    },
-    computed: {
-        sanitizedValue() {
-            const parsedValue = parseFloat(this.internalValue)
-            if (isNaN(parsedValue)) {
-                return 0
-            }
-            return parsedValue
+        },
+        emitValue() {
+            this.$emit('input', this.internalValue)
         }
     }
 }
@@ -55,7 +68,7 @@ export default {
                 <span>-</span>
             </button>
         </span>
-        <input type="text" class="form-control" v-model="internalValue" @keydown.up="plus" @keydown.down="minus" @wheel="onWheel">
+        <input class="form-control" :value="internalValue" @input="onInput" @keydown.up="plus" @keydown.down="minus" @wheel="onWheel">
         <div class="input-group-btn">
             <button class="btn btn-default btn-plus" @click="plus()">
                 <span>+</span>
