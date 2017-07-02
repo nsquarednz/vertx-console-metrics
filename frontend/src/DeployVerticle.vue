@@ -42,7 +42,7 @@
         <div class="control-col">
             <label class="control-label">HA</label>
             <v-select v-model="ha" :options="['Enabled', 'Disabled']"></v-select>
-        </div>    
+        </div>
         <div slot="modal-footer" class="modal-footer" style="padding-top: 0; margin-top: 0">
             <button type="button" class="btn btn-default" @click="show = false">Close</button>
             <button type="button" class="btn btn-primary" @click="deployVerticle" :disabled="!inputsAreValid">Deploy</button>
