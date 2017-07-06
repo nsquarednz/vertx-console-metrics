@@ -37,7 +37,7 @@ public class MetricsConsolePage implements ConsolePage {
                             .setWorker(isWorker)
                             .setHa(ha)
                             .setInstances(instances);
-                    if (deployConfig.size() > 0) {
+                    if (deployConfig != null && deployConfig.size() > 0) {
                         deploymentOptions.setConfig(deployConfig);
                     }
 
