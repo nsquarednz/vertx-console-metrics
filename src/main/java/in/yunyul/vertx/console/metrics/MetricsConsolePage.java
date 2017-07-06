@@ -15,6 +15,14 @@ public class MetricsConsolePage implements ConsolePage {
 
     private CollectorRegistry registry;
 
+    public static MetricsConsolePage create() {
+        return new MetricsConsolePage(CollectorRegistry.defaultRegistry);
+    }
+
+    public static MetricsConsolePage create(CollectorRegistry registry) {
+        return new MetricsConsolePage(registry);
+    }
+
     public MetricsConsolePage(CollectorRegistry registry) {
         this.registry = registry;
     }
