@@ -196,10 +196,19 @@ export default {
     },
     beforeMount() {
         this.numeral = numeral;
+        this.lastUpdated = -1;
+        this.updateRateInSeconds = 1;
+
         // Necessary for reactivity
         this.metricsCallback = metrics => {
             this.metrics = metrics;
             // console.log(JSON.stringify(this.metrics, null, 4));
+            const prevUpdated = this.lastUpdated;
+            this.lastUpdated = performance.now();
+
+            if (this.lastUpdated !== -1) {
+                this.updateRateInSeconds = (this.lastUpdated - prevUpdated) / 1000;
+            }
         };
         Metrics.addCallback(this.metricsCallback);
 
@@ -359,7 +368,7 @@ export default {
             if (this.lastTotalReqs === undefined) {
                 rps = 0;
             } else {
-                rps = totalReqs - this.lastTotalReqs;
+                rps = Math.round((totalReqs - this.lastTotalReqs) / this.updateRateInSeconds);
             }
             this.lastTotalReqs = totalReqs;
             return {
@@ -372,7 +381,7 @@ export default {
             if (this.lastTotalPublished === undefined) {
                 mpps = 0;
             } else {
-                mpps = totalPublished - this.lastTotalPublished;
+                mpps = Math.round((totalPublished - this.lastTotalPublished) / this.updateRateInSeconds);
             }
             this.lastTotalPublished = totalPublished;
             return {
