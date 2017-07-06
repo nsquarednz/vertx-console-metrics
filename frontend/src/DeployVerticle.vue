@@ -39,7 +39,7 @@
     <modal class="deploy-verticle" title="Deploy Verticle" effect="fade" v-model="show" @ok="show = false" large>
         <div class="modal-row">
             <div style="width: 100%">
-                <bs-input v-model="verticleClass" label="Verticle" help="Enter verticle to deploy" required></bs-input>
+                <bs-input v-model="verticleClass" label="Verticle" help="Enter verticle to deploy (required)" required></bs-input>
             </div>
             <!-- TODO: Convert to switches -->
             <div class="control-col">
