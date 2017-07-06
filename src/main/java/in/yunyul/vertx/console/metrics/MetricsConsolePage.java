@@ -31,13 +31,18 @@ public class MetricsConsolePage implements ConsolePage {
                     boolean isWorker = body.getBoolean("isWorker");
                     boolean ha = body.getBoolean("ha");
                     int instances = body.getInteger("instances");
+                    JsonObject deployConfig = body.getJsonObject("deployConfig");
+
+                    DeploymentOptions deploymentOptions = new DeploymentOptions()
+                            .setWorker(isWorker)
+                            .setHa(ha)
+                            .setInstances(instances);
+                    if (deployConfig.size() > 0) {
+                        deploymentOptions.setConfig(deployConfig);
+                    }
 
                     // TODO: Completion handler
-                    vertx.deployVerticle(name,
-                            new DeploymentOptions()
-                                    .setWorker(isWorker)
-                                    .setHa(ha)
-                                    .setInstances(instances),
+                    vertx.deployVerticle(name, deploymentOptions,
                             result -> {
                                 JsonObject response = new JsonObject();
                                 if (result.succeeded()) {
