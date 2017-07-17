@@ -1,7 +1,13 @@
 package in.yunyul.vertx.console.metrics;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.SharedMetricRegistries;
+import in.yunyul.prometheus.extras.AdditionalJVMExports;
+import in.yunyul.prometheus.extras.DropwizardTimerRateExports;
 import in.yunyul.vertx.console.base.ConsolePage;
 import io.prometheus.client.CollectorRegistry;
+import io.prometheus.client.dropwizard.DropwizardExports;
+import io.prometheus.client.hotspot.DefaultExports;
 import io.prometheus.client.vertx.MetricsHandler;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
@@ -14,6 +20,16 @@ public class MetricsConsolePage implements ConsolePage {
     private static final String JSON_CONTENT_TYPE = "application/json";
 
     private CollectorRegistry registry;
+
+    // Dropwizard helper function
+    public static MetricsConsolePage create(MetricRegistry dropwizardRegistry) {
+        CollectorRegistry defaultRegistry = CollectorRegistry.defaultRegistry;
+        defaultRegistry.register(new DropwizardExports(dropwizardRegistry));
+        DefaultExports.initialize();
+        new AdditionalJVMExports().register();
+        new DropwizardTimerRateExports(dropwizardRegistry).register();
+        return create(defaultRegistry);
+    }
 
     public static MetricsConsolePage create() {
         return new MetricsConsolePage(CollectorRegistry.defaultRegistry);
