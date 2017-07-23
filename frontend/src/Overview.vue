@@ -174,8 +174,8 @@
 </style>
 
 <script>
-import prettyMs from 'pretty-ms';
 import numeral from 'numeral';
+import formatSeconds from './formatseconds.js';
 
 import Metrics from './metrics.js';
 Metrics.initialize('/metrics');
@@ -360,7 +360,7 @@ export default {
             }
         },
         uptime() {
-            return prettyMs(Math.floor(Date.now() / 1e3 - this.getSimpleMetricValue('process_start_time_seconds')) * 1e3);
+            return formatSeconds(Math.floor(Date.now() / 1e3 - this.getSimpleMetricValue('process_start_time_seconds')));
         },
         avgRequestsPerSecond() {
             const totalReqs = this.getMetricByName('vertx_http_servers_.*:\\d+_requests', true).metrics.count;

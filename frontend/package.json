@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "numeral": "^2.0.6",
-    "parse-prometheus-text-format": "^1.0.5",
-    "pretty-ms": "^2.1.0"
+    "parse-prometheus-text-format": "^1.0.5"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
