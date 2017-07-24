@@ -90,7 +90,7 @@ export default {
             };
             this.inProgress = true;
             this.$http.post(window.location.pathname + '/verticle/deploy', options)
-                .then(response => response.json())
+                .then(response => response.data)
                 .then(response => {
                     this.inProgress = false;
                     console.log(JSON.stringify(response));
