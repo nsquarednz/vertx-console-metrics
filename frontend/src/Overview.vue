@@ -10,18 +10,19 @@
                 </pf-aggregate-status-card>
             </div>
             <div class="col-md-3">
-                <pf-aggregate-status-card title="Uptime" iconClass="fa fa-clock-o">
-                    <span>{{ uptime }}</span>
-                </pf-aggregate-status-card>
-            </div>
-            <div class="col-md-3">
                 <pf-aggregate-status-card title="Open Connections" :count="getSimpleMetricValue('.*_open_connections_.*', true)" iconClass="fa fa-exchange">
                     <span class="pficon pficon-ok"></span>
                 </pf-aggregate-status-card>
             </div>
             <div class="col-md-3">
-                <pf-aggregate-status-card title="Load Average" :count="getSimpleMetricValue('os_load_average').toFixed(2)" iconClass="fa fa-hourglass">
-                    <span class="pficon pficon-ok"></span>
+                <pf-aggregate-status-card title="Event Loop Threads" :count="simpleFormattedData('vertx_event_loop_size').value" iconClass="fa fa-microchip
+                ">
+                    <span>{{ simpleFormattedData('os_avail_processors').value }} Cores</span>
+                </pf-aggregate-status-card>
+            </div>
+            <div class="col-md-3">
+                <pf-aggregate-status-card :count="'Up for ' + uptime" iconClass="fa fa-clock-o">
+                    <span>{{ getSimpleMetricValue('os_load_average').toFixed(2) }} Load Avg</span>
                 </pf-aggregate-status-card>
             </div>
             <div :class="getColumnClass(1)">
@@ -73,7 +74,7 @@
                     <div class="pf-body-separator noline"></div>
                     <div class="pf-card-section">
                         <div class="col-sm-4 col-md-4">
-                            <pf-trend-details title="Available CPUs" :data="simpleFormattedData('os_avail_processors')"></pf-trend-details>
+                            <pf-trend-details title="Daemon Threads" :data="simpleFormattedData('jvm_threads_daemon')"></pf-trend-details>
                         </div>
                         <div class="col-sm-4 col-md-4">
                             <pf-trend-details title="Loaded Classes" :data="simpleFormattedData('jvm_classes_loaded', '0[.]0a')"></pf-trend-details>
