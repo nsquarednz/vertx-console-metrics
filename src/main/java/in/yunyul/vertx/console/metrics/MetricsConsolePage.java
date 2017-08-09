@@ -3,6 +3,7 @@ package in.yunyul.vertx.console.metrics;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
 import in.yunyul.prometheus.extras.AdditionalJVMExports;
+import in.yunyul.prometheus.extras.AdditionalVertxExports;
 import in.yunyul.prometheus.extras.DropwizardTimerRateExports;
 import in.yunyul.vertx.console.base.ConsolePage;
 import io.prometheus.client.CollectorRegistry;
@@ -28,6 +29,7 @@ public class MetricsConsolePage implements ConsolePage {
         DefaultExports.initialize();
         new AdditionalJVMExports().register();
         new DropwizardTimerRateExports(dropwizardRegistry).register();
+        new AdditionalVertxExports().register();
         return create(defaultRegistry);
     }
 
