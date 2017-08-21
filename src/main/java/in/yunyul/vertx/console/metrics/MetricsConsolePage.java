@@ -33,10 +33,21 @@ public class MetricsConsolePage implements ConsolePage {
         return create(defaultRegistry);
     }
 
+    /**
+     * Creates the metrics console page, using the default collector registry
+     *
+     * @return the console page
+     */
     public static MetricsConsolePage create() {
         return new MetricsConsolePage(CollectorRegistry.defaultRegistry);
     }
 
+    /**
+     * Creates the metrics console page, using the specified collector registry
+     *
+     * @param registry the collector registry
+     * @return the console page
+     */
     public static MetricsConsolePage create(CollectorRegistry registry) {
         return new MetricsConsolePage(registry);
     }
