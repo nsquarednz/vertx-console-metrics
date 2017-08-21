@@ -15,9 +15,9 @@
                 </pf-aggregate-status-card>
             </div>
             <div class="col-md-3">
-                <pf-aggregate-status-card title="Event Loop Threads" :count="simpleFormattedData('vertx_event_loop_size').value" iconClass="fa fa-microchip
+                <pf-aggregate-status-card title="Available Cores" :count="simpleFormattedData('os_avail_processors').value" iconClass="fa fa-microchip
                 ">
-                    <span>{{ simpleFormattedData('os_avail_processors').value }} Cores</span>
+                    <span>{{ simpleFormattedData('vertx_event_loop_threads').value }} Event Loops</span>
                 </pf-aggregate-status-card>
             </div>
             <div class="col-md-3">
