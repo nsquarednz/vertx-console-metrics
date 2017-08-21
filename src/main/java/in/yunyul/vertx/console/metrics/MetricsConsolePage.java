@@ -41,7 +41,7 @@ public class MetricsConsolePage implements ConsolePage {
         return new MetricsConsolePage(registry);
     }
 
-    public MetricsConsolePage(CollectorRegistry registry) {
+    private MetricsConsolePage(CollectorRegistry registry) {
         this.registry = registry;
     }
 
