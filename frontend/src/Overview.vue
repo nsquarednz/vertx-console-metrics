@@ -15,9 +15,9 @@
                 </pf-aggregate-status-card>
             </div>
             <div class="col-md-3">
-                <pf-aggregate-status-card title="Available Cores" :count="simpleFormattedData('os_avail_processors').value" iconClass="fa fa-microchip
+                <pf-aggregate-status-card :title="`Event Loops, ${simpleFormattedData('vertx_event_loop_size').value} Max`" :count="simpleFormattedData('vertx_event_loop_threads').value" iconClass="fa fa-microchip
                 ">
-                    <span>{{ simpleFormattedData('vertx_event_loop_threads').value }} Event Loops</span>
+                    <span>{{ simpleFormattedData('os_avail_processors').value }} Processors</span>
                 </pf-aggregate-status-card>
             </div>
             <div class="col-md-3">
@@ -162,6 +162,10 @@
     .pf-card-grid .card-pf.card-pf-aggregate-status {
         height: 104px;
     }
+}
+
+.card-pf-aggregate-status-notifications {
+    font-size: 20px;
 }
 
 .pf-card-section {
