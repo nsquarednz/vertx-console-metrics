@@ -22,15 +22,32 @@ public class MetricsConsolePage implements ConsolePage {
 
     private CollectorRegistry registry;
 
-    // Dropwizard helper function
+    /**
+     * Creates the metrics console page, using the provided Dropwizard registry
+     * and the default collector registry
+     *
+     * @param dropwizardRegistry the Dropwizard registry
+     * @return the console page
+     */
     public static MetricsConsolePage create(MetricRegistry dropwizardRegistry) {
-        CollectorRegistry defaultRegistry = CollectorRegistry.defaultRegistry;
-        defaultRegistry.register(new DropwizardExports(dropwizardRegistry));
+        return create(dropwizardRegistry, CollectorRegistry.defaultRegistry);
+    }
+
+    /**
+     * Creates the metrics console page, using the provided Dropwizard registry
+     * and the provided collector registry
+     *
+     * @param dropwizardRegistry the Dropwizard registry
+     * @param registry           the collector registry
+     * @return the console page
+     */
+    public static MetricsConsolePage create(MetricRegistry dropwizardRegistry, CollectorRegistry registry) {
+        registry.register(new DropwizardExports(dropwizardRegistry));
         DefaultExports.initialize();
         new AdditionalJVMExports().register();
         new DropwizardTimerRateExports(dropwizardRegistry).register();
         new AdditionalVertxExports().register();
-        return create(defaultRegistry);
+        return create(registry);
     }
 
     /**
@@ -43,7 +60,7 @@ public class MetricsConsolePage implements ConsolePage {
     }
 
     /**
-     * Creates the metrics console page, using the specified collector registry
+     * Creates the metrics console page, using the provided collector registry
      *
      * @param registry the collector registry
      * @return the console page
